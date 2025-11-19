@@ -4,21 +4,21 @@ from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-CORS(app) # Permite que o React (porta diferente) fale com o Flask
+CORS(app)
 
-# Configuração do Banco de Dados SQLite
+# Configuração do Banco
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///despesas.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# Modelo da Tabela (Como os dados são salvos)
-class Despesa(db.Model):
+class Transacao(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     descricao = db.Column(db.String(100), nullable=False)
     valor = db.Column(db.Float, nullable=False)
     categoria = db.Column(db.String(50), nullable=False)
-    data = db.Column(db.String(10), nullable=False) # Vamos salvar como String YYYY-MM-DD
+    data = db.Column(db.String(10), nullable=False)
+    tipo = db.Column(db.String(10), nullable=False) # Novo campo: 'entrada' ou 'saida'
 
     def to_json(self):
         return {
@@ -26,39 +26,37 @@ class Despesa(db.Model):
             "descricao": self.descricao,
             "valor": self.valor,
             "categoria": self.categoria,
-            "data": self.data # Retorna a data pro front
+            "data": self.data,
+            "tipo": self.tipo
         }
 
-# Cria o banco de dados se não existir
 with app.app_context():
     db.create_all()
 
-# Rota 1: Listar todas as despesas (GET)
-@app.route('/despesas', methods=['GET'])
-def get_despesas():
-    despesas = Despesa.query.all()
-    return jsonify([d.to_json() for d in despesas])
+@app.route('/transacoes', methods=['GET'])
+def get_transacoes():
+    transacoes = Transacao.query.all()
+    return jsonify([t.to_json() for t in transacoes])
 
-# Rota 2: Criar nova despesa (POST)
-@app.route('/despesas', methods=['POST'])
-def add_despesa():
+@app.route('/transacoes', methods=['POST'])
+def add_transacao():
     dados = request.json
-    nova_despesa = Despesa(
+    nova_transacao = Transacao(
         descricao=dados['descricao'],
         valor=dados['valor'],
         categoria=dados['categoria'],
-        data=dados['data'] # Recebe a data do React
+        data=dados['data'],
+        tipo=dados['tipo']
     )
-    db.session.add(nova_despesa)
+    db.session.add(nova_transacao)
     db.session.commit()
-    return jsonify({"mensagem": "Despesa criada!"}), 201
+    return jsonify({"mensagem": "Transação criada!"}), 201
 
-# Rota 3: Deletar despesa (DELETE)
-@app.route('/despesas/<int:id>', methods=['DELETE'])
-def delete_despesa(id):
-    despesa = Despesa.query.get(id)
-    if despesa:
-        db.session.delete(despesa)
+@app.route('/transacoes/<int:id>', methods=['DELETE'])
+def delete_transacao(id):
+    item = Transacao.query.get(id)
+    if item:
+        db.session.delete(item)
         db.session.commit()
         return jsonify({"mensagem": "Deletado!"})
     return jsonify({"erro": "Não encontrado"}), 404
