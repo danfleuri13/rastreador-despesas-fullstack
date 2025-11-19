@@ -1,0 +1,11 @@
+# Ignorar arquivos do Python
+__pycache__/
+*.py[cod]
+venv/
+.env
+*.db
+
+# Ignorar arquivos do Node (Frontend)
+node_modules/
+dist/
+.DS_Store

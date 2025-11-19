@@ -1,0 +1,74 @@
+/* src/App.css */
+.container { 
+  max-width: 600px; 
+  margin: 40px auto; 
+  padding: 20px; 
+  font-family: sans-serif; 
+}
+
+h1 {
+  color: #333;
+}
+
+.form-card { 
+  display: flex; 
+  gap: 10px; 
+  margin-bottom: 30px; 
+  padding: 20px; 
+  background: #f4f4f4; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+input, select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  flex: 1; /* Faz os campos esticarem */
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.lista { 
+  list-style: none; 
+  padding: 0; 
+}
+
+.item { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 15px; 
+  border-bottom: 1px solid #eee; 
+  background: white;
+}
+
+.info { 
+  display: flex; 
+  flex-direction: column; 
+  text-align: left;
+}
+
+.preco { 
+  font-weight: bold; 
+  color: #2ecc71; 
+  margin-right: 15px; 
+  font-size: 1.1em;
+}
+
+.delete-btn { 
+  background: #e74c3c; 
+  margin-left: 10px;
+  padding: 5px 10px;
+}
