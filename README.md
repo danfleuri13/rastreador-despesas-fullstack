@@ -23,8 +23,13 @@ Agora rodando 100% em containers Docker para garantir compatibilidade e facilida
 - Ter o **Docker Desktop** instalado e rodando.
 
 ### Passo a Passo
+PASSO 1
+abra o arquivo iniciar_docker.bat
+
+SEGUNDA OPÇÃO
 1. Clone o repositório.
 2. Na raiz do projeto, execute:
 
 ```bash
 docker compose up --build
+
