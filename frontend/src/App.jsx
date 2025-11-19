@@ -25,7 +25,7 @@ function App() {
 
   const fetchTransacoes = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/transacoes')
+      const response = await axios.get('http://localhost:5000/transacoes')
       setLista(response.data)
     } catch (error) { console.error("Erro:", error) }
   }
@@ -37,7 +37,7 @@ function App() {
     if (!form.descricao || !form.valor || !form.data || !form.categoria) return
     const dataFormatada = form.data.toISOString().split('T')[0]
     try {
-      await axios.post('http://127.0.0.1:5000/transacoes', {
+      await axios.post('http://localhost:5000/transacoes', {
         descricao: form.descricao, valor: parseFloat(form.valor), categoria: form.categoria, data: dataFormatada, tipo: form.tipo
       })
       setForm({ ...form, descricao: '', valor: '', categoria: '' }) 
@@ -47,7 +47,7 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://127.0.0.1:5000/transacoes/${id}`)
+      await axios.delete(`http://localhost:5000/transacoes/${id}`)
       fetchTransacoes()
     } catch (error) { console.error("Erro:", error) }
   }

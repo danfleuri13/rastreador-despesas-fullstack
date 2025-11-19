@@ -62,4 +62,4 @@ def delete_transacao(id):
     return jsonify({"erro": "Não encontrado"}), 404
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
