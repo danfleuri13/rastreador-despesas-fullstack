@@ -1,20 +1,30 @@
-# 💰 Dashboard de Controle Financeiro
+# 💰 Dashboard de Controle Financeiro (Dockerized)
 
-Aplicação Fullstack para gestão de fluxo de caixa pessoal, com interface responsiva e visualização de dados.
+Aplicação Fullstack para gestão de fluxo de caixa pessoal.
+Agora rodando 100% em containers Docker para garantir compatibilidade e facilidade de execução.
 
-## 🚀 Funcionalidades
+## 🚀 Tecnologias
 
-- **Controle de Fluxo:** Registro de Entradas (Ganhos) e Saídas (Gastos).
-- **Dashboard Visual:**
-    - Cards de resumo (Entradas, Saídas e Saldo).
-    - Gráfico de Rosca (Donut Chart) para análise de gastos por categoria.
-- **UX/UI Moderna:**
-    - Calendário interativo (Datepicker).
-    - Design responsivo (Mobile First).
-    - Botões e formulários estilizados.
-- **Tech Stack:** React (Vite), Python (Flask), SQLite, Recharts.
+- **Frontend:** React, Vite, Recharts (Docker Node Alpine).
+- **Backend:** Python, Flask, SQLAlchemy (Docker Python Slim).
+- **Banco de Dados:** SQLite.
+- **Infraestrutura:** Docker Compose.
 
-## 📦 Como rodar
+## ⚙️ Funcionalidades
 
+- Dashboard visual com gráficos interativos.
+- Drill-down: Clique nos gráficos ou cards para ver detalhes.
+- Cadastro de Entradas e Saídas.
+- Ambiente isolado e reprodutível.
+
+## 📦 Como rodar o projeto
+
+### Pré-requisitos
+- Ter o **Docker Desktop** instalado e rodando.
+
+### Passo a Passo
 1. Clone o repositório.
-2. Execute o arquivo `iniciar.bat` (Windows) ou inicie backend e frontend manualmente.
+2. Na raiz do projeto, execute:
+
+```bash
+docker compose up --build
