@@ -1,16 +1,20 @@
-# React + Vite
+# 💰 Dashboard de Controle Financeiro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação Fullstack para gestão de fluxo de caixa pessoal, com interface responsiva e visualização de dados.
 
-Currently, two official plugins are available:
+## 🚀 Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Controle de Fluxo:** Registro de Entradas (Ganhos) e Saídas (Gastos).
+- **Dashboard Visual:**
+    - Cards de resumo (Entradas, Saídas e Saldo).
+    - Gráfico de Rosca (Donut Chart) para análise de gastos por categoria.
+- **UX/UI Moderna:**
+    - Calendário interativo (Datepicker).
+    - Design responsivo (Mobile First).
+    - Botões e formulários estilizados.
+- **Tech Stack:** React (Vite), Python (Flask), SQLite, Recharts.
 
-## React Compiler
+## 📦 Como rodar
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clone o repositório.
+2. Execute o arquivo `iniciar.bat` (Windows) ou inicie backend e frontend manualmente.
