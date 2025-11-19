@@ -1,74 +1,465 @@
 /* src/App.css */
-.container { 
-  max-width: 600px; 
-  margin: 40px auto; 
-  padding: 20px; 
-  font-family: sans-serif; 
+
+/* Reset básico e variáveis de cores */
+:root {
+  font-family: 'Poppins', sans-serif; /* Usaremos uma fonte mais moderna */
+  --primary-color: #4CAF50; /* Verde para entradas */
+  --secondary-color: #F44336; /* Vermelho para saídas */
+  --accent-color: #2196F3; /* Azul para saldo */
+  --bg-light: #f7f9fc;
+  --text-dark: #333;
+  --text-light: #fff;
+  --shadow-light: rgba(0, 0, 0, 0.08);
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinha o conteúdo ao topo */
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+#root {
+  width: 100%;
+  max-width: 900px; /* Aumenta a largura máxima para o desktop */
+  padding: 20px;
+  box-sizing: border-box; /* Inclui padding na largura */
+}
+
+/* Título */
 h1 {
-  color: #333;
+  text-align: center;
+  color: var(--text-dark);
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-.form-card { 
-  display: flex; 
-  gap: 10px; 
-  margin-bottom: 30px; 
-  padding: 20px; 
-  background: #f4f4f4; 
-  border-radius: 8px; 
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+h1::before {
+  content: '💰'; /* Ícone de sacola de dinheiro */
+  font-size: 1.8rem;
 }
 
-input, select {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  flex: 1; /* Faz os campos esticarem */
+/* Cards de Resumo */
+.summary-cards {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap; /* Permite quebrar linha em telas pequenas */
+  justify-content: center;
 }
 
-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
+.card-resumo {
+  flex: 1;
+  min-width: 150px; /* Aumenta o tamanho mínimo para cards */
+  max-width: 250px; /* Limita o tamanho em telas grandes */
+  padding: 20px;
+  border-radius: 12px;
+  color: var(--text-light);
+  text-align: center;
+  box-shadow: 0 6px 15px var(--shadow-light);
+  transition: transform 0.2s ease-in-out;
 }
 
-button:hover {
-  background-color: #0056b3;
+.card-resumo:hover {
+    transform: translateY(-5px);
 }
 
-.lista { 
-  list-style: none; 
-  padding: 0; 
+.card-resumo span {
+  font-size: 1rem;
+  opacity: 0.9;
 }
 
-.item { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  padding: 15px; 
-  border-bottom: 1px solid #eee; 
-  background: white;
+.card-resumo h3 {
+  margin: 10px 0 0 0;
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
-.info { 
-  display: flex; 
-  flex-direction: column; 
+.bg-entrada { background-color: var(--primary-color); }
+.bg-saida { background-color: var(--secondary-color); }
+.bg-saldo { background-color: var(--accent-color); }
+
+/* Gráfico */
+.chart-container {
+  background-color: var(--text-light);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 15px var(--shadow-light);
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center; /* Centraliza o gráfico */
+  align-items: center;
+}
+
+/* Formulário de Transação */
+.form-card {
+  background-color: var(--text-light);
+  border-radius: 16px; /* Mais arredondado */
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Container dos botões de tipo (Entrada/Saída) */
+.radio-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+/* Esconde a bolinha original do rádio */
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+/* O visual do botão (Label) */
+.radio-label {
+    padding: 12px 30px;
+    border-radius: 50px; /* Formato de pílula */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid #e0e0e0;
+    color: #777;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+}
+
+.radio-label:hover {
+    transform: translateY(-2px);
+    border-color: #ccc;
+}
+
+/* Estilo QUANDO SELECIONADO - Entrada */
+.radio-label.active-entrada {
+    background-color: var(--primary-color); /* Verde */
+    border-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3); /* Sombra verde suave */
+}
+
+/* Estilo QUANDO SELECIONADO - Saída */
+.radio-label.active-saida {
+    background-color: var(--secondary-color); /* Vermelho */
+    border-color: var(--secondary-color);
+    color: white;
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3); /* Sombra vermelha suave */
+}
+
+/* --- INPUTS E SELECT --- */
+
+.input-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.form-card input, 
+.form-card select {
+    padding: 14px 18px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px; /* Bordas suaves */
+    font-size: 1rem;
+    background-color: #f9f9f9; /* Fundo levemente cinza */
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.form-card input:focus, 
+.form-card select:focus {
+    border-color: var(--accent-color);
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+/* Estilização Especial do SELECT (Dropdown) */
+.form-card select {
+    appearance: none; /* Remove estilo padrão do Windows/Mac */
+    cursor: pointer;
+    min-width: 180px;
+    /* Adiciona uma setinha customizada via SVG encoded */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px;
+    padding-right: 40px; /* Espaço para a setinha não ficar em cima do texto */
+}
+
+/* Botão de Salvar */
+.form-card button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    flex-grow: 1; /* Faz o botão crescer se precisar */
+}
+
+.form-card button:hover {
+    background-color: #43a047;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+/* Lista de Transações */
+.lista {
+  list-style: none;
+  padding: 0;
+  background-color: var(--text-light);
+  border-radius: 12px;
+  box-shadow: 0 6px 15px var(--shadow-light);
+  overflow: hidden; /* Garante bordas arredondadas */
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  position: relative; /* Para a barra lateral */
+  transition: background-color 0.2s ease;
+}
+
+.item:last-child {
+  border-bottom: none; /* Remove a borda do último item */
+}
+
+.item:hover {
+    background-color: #fcfcfc;
+}
+
+/* Barra lateral de tipo */
+.item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px; /* Largura da barra */
+    background-color: #ccc; /* Cor padrão */
+    border-radius: 4px 0 0 4px;
+}
+
+.item.entrada::before {
+    background-color: var(--primary-color);
+}
+
+.item.saida::before {
+    background-color: var(--secondary-color);
+}
+
+
+.item .info {
+  display: flex;
+  flex-direction: column;
   text-align: left;
+  flex-grow: 1; /* Permite que o info ocupe espaço */
 }
 
-.preco { 
-  font-weight: bold; 
-  color: #2ecc71; 
-  margin-right: 15px; 
-  font-size: 1.1em;
+.item .info small { /* Data */
+  color: #888;
+  font-size: 0.85rem;
+  margin-bottom: 3px;
 }
 
-.delete-btn { 
-  background: #e74c3c; 
-  margin-left: 10px;
-  padding: 5px 10px;
+.item .info strong { /* Descrição */
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-dark);
 }
+
+.item .info span { /* Categoria */
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.item .valores {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.item .valores .preco {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.item .delete-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #a0a0a0;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.2s ease;
+}
+
+.item .delete-btn:hover {
+  color: var(--secondary-color);
+}
+
+
+/* --- RESPONSIVIDADE (MOBILE FIRST) --- */
+@media (max-width: 768px) {
+  #root {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .card-resumo {
+    width: 100%; /* Ocupa a largura total em mobile */
+    max-width: none;
+    font-size: 0.9rem;
+  }
+  .card-resumo h3 {
+    font-size: 1.6rem;
+  }
+
+  .form-card {
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .form-card > div {
+      flex-direction: column; /* Empilha os campos em mobile */
+      gap: 10px;
+  }
+
+  .form-card input,
+  .form-card select,
+  .form-card button {
+      width: 100%; /* Ocupa a largura total */
+      box-sizing: border-box;
+      padding: 10px;
+  }
+
+  .form-card input[type="date"],
+  .form-card input[type="number"] {
+      width: 100%; /* Redefine para 100% em mobile */
+  }
+
+  .form-card label {
+      width: 100%;
+      justify-content: center; /* Centraliza o texto */
+  }
+
+  .item {
+    flex-direction: column; /* Empilha info e valores em mobile */
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 15px;
+  }
+
+  .item .info {
+      width: 100%;
+  }
+
+  .item .valores {
+    width: 100%;
+    justify-content: space-between; /* Espalha valor e botão */
+  }
+
+  /* --- ESTILO DO CALENDÁRIO (React Datepicker) --- */
+
+/* Wrapper para alinhar o input do calendário */
+.custom-datepicker-wrapper {
+    width: 140px;
+}
+
+/* O input onde aparece a data */
+.custom-datepicker {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    color: #333;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+.custom-datepicker:focus {
+    border-color: var(--accent-color);
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+    outline: none;
+}
+
+/* A CAIXA DO CALENDÁRIO (Popup) */
+.react-datepicker {
+    font-family: 'Poppins', sans-serif !important;
+    border: none !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+    overflow: hidden;
+}
+
+/* Cabeçalho (Mês e Ano) */
+.react-datepicker__header {
+    background-color: var(--primary-color) !important; /* Fundo Verde */
+    border-bottom: none !important;
+    padding-top: 15px !important;
+}
+
+.react-datepicker__current-month, 
+.react-datepicker__day-name {
+    color: white !important; /* Texto Branco */
+    font-weight: 600;
+}
+
+/* Dias */
+.react-datepicker__day {
+    color: #444;
+    width: 2rem;
+    line-height: 2rem;
+    margin: 0.2rem;
+    border-radius: 50%; /* Dias redondinhos */
+}
+
+.react-datepicker__day:hover {
+    background-color: #f0f0f0 !important;
+}
+
+/* Dia Selecionado */
+.react-datepicker__day--selected {
+    background-color: var(--primary-color) !important; /* Verde */
+    color: white !important;
+    font-weight: bold;
+}
+
+/* Seta de navegação (Triângulos) */
+.react-datepicker__navigation-icon::before {
+    border-color: white !important; /* Setas brancas */
+}
+
+}
+
+
+
+/* Fonte Poppins do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
